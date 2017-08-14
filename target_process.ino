@@ -81,9 +81,9 @@ void mode_nb_cible(int nb_cibles) {
     Serial.println(sensor_of_cible);
     
     digitalWrite(random_cible, HIGH);
-    // activer capteur
-    value = analogRead(sensor_of_cible);     
+    value = 0
     while(value < THRESHOLD){
+      value = analogRead(sensor_of_cible);
       Serial.println("value :");
       Serial.println(value);
 

@@ -8,39 +8,51 @@
 #define relais8 29
 #define relais9 30
 #define relais10 31
+#define sensor1 32
+#define sensor2 33
+#define sensor3 34
+#define sensor4 35
+#define sensor5 36
+#define sensor6 37
+#define sensor7 38
+#define sensor8 39
+#define sensor9 40
+#define sensor10 41
 
 // Relais
 int total_cible = 10;
-int tab_relais[10] = {relais1, relais2, relais3, relais4, relais5, relais6, relais7, relais8, relais9, relais10};
-
-// Sensor
-int tab_sensor[10] = {sensor1, sensor2, ...};
-
+int list_relais[10] = {relais1, relais2, relais3, relais4, relais5, relais6, relais7, relais8, relais9, relais10};
+int number_random;
 int random_cible;
+int sensor_of_cible;
+
+// Sensors
+int list_sensor[10] ={sensor1, sensor2, sensor3, sensor4, sensor5, sensor6, sensor7, sensor8, sensor9, sensor10};
+
+byte value = 0;
+int THRESHOLD = 100; // Detection value
 
 
 void setup() {
-  Serial.begin(9600); 
-  Serial.println("-----");
-  // initialisation Cibles
+ // initialisation Cibles
   for (int x = 0; x < total_cible; x++) {
     // relais/leds
     Serial.println("active relais: ");
-    Serial.println(tab_relais[x]);
-    pinMode(tab_relais[x], OUTPUT);
-    digitalWrite(tab_relais[x], HIGH);
+    Serial.println(list_relais[x]);
+    pinMode(list_relais[x], OUTPUT);
+    digitalWrite(list_relais[x], HIGH);
     delay(250);
-    digitalWrite(tab_relais[x], LOW);
+    digitalWrite(list_relais[x], LOW);
     //sensors
-    pinMode(tab_sensor[x], INPUT)
+    pinMode(list_sensor[x], INPUT);
   }
+
   Serial.println("-----");
-  mode_nb_cible(1000);
+  mode_nb_cible(10);
 }
 
 void loop() {
 }
-
 
 void mode_nb_cible(int nb_cibles) {
   Serial.println("");
@@ -58,46 +70,44 @@ void mode_nb_cible(int nb_cibles) {
   Serial.println("BANG BANG");
   // Bang Bang
   for (int cibles = 0; cibles <= nb_cibles; cibles++) {
-    random_cible = random(relais1, relais10);
+    number_random = random(0, 9);
+    random_cible = list_relais[number_random];
+    sensor_of_cible = list_sensor[number_random];
+
     Serial.println("**");
     Serial.println("random cible :");
     Serial.println(random_cible);
+    Serial.println("Sensor associate :");
+    Serial.println(sensor_of_cible);
     
     digitalWrite(random_cible, HIGH);
     // activer capteur
-    // change_state_capteur(random_cible)
-    bool toucher = false;
-    while (toucher == false) {
-      // Reception capteur vibration
+    value = analogRead(sensor_of_cible);     
+    while(value < THRESHOLD){
+      Serial.println("value :");
+      Serial.println(value);
 
-      // la on fake le capteur
-      // apre un delay on passe: toucher => true
-      toucher = fake_vribreur();
+      // A enlever pour le test en vrai
+      value = fake_vribreur();
     }
 
     Serial.println("BANG !!!!!!");
     digitalWrite(random_cible, LOW);
-    // désactiver capteur
-    // change_state_capteur(random_cible)
   }
+
   Serial.println("FINISHH BANG BANG");
 }
 
+// Call while initialization
 void loop_relais_starting(int state, int _delay) {
   for (int x = 0; x < total_cible; x++) {
     delay(_delay);
-    digitalWrite(tab_relais[x], state);
+    digitalWrite(list_relais[x], state);
   }
 }
 
-void change_state_capteur(int capteur) {
-  // a coder
-}
-
 int fake_vribreur() {
-  int nb = random(1, 10 * 75);
-  Serial.println(nb);
-  delay(nb);
-  return true;
+  int nb = random(50, 250);
+  delay(750);
+  return nb;
 }
-

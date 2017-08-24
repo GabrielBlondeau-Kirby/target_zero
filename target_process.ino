@@ -40,9 +40,9 @@ void setup() {
 
 void loop() {
 }
+*/
 
-
-void mode_nb_cible(int nb_cibles) {
+void standGame(int nb_cibles) {
   Serial.println("");
   Serial.println("MODE_NB_CIBLE");
   // All led ON

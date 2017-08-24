@@ -1,4 +1,5 @@
 #include <LiquidCrystal_I2C.h>
+#include <C:\Users\blond\Desktop\cool_target\target_zero\non_git\target_z3r0\menu\target_process.ino>
 
 LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
@@ -18,15 +19,14 @@ void setup() {
   lcd.print("Target z3r0");
   delay(1500);
 
-  MenuTargetZero();
+  menuTargetsZero();
 }
 
-void loop() {
-}
+void loop() {}
 
 
 
-void MenuTargetZero() {
+void menuTargetsZero() {
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("Jeux");
@@ -35,21 +35,21 @@ void MenuTargetZero() {
   lcd.setCursor(0,1);
   lcd.print("Réglages");
 
-  delay(500);
+  delay(250);
   while(1){
     // Play
     if(digitalRead(btnUp) == HIGH){
-      MenuGames();
+      menuGames();
     }
 
     // Gestion User
     if(digitalRead(btnDown) == HIGH){
-      MenuUser();
+      menuUser();
     }
 
     // Settings
     if(digitalRead(btnSelect) == HIGH){
-      MenuSettings();
+      menuSettings();
     }
 
     delay(200);
@@ -57,7 +57,7 @@ void MenuTargetZero() {
 }
 
 
-void MenuGames(){
+void menuGames(){
   choix = 0;
   
   lcd.clear();
@@ -70,7 +70,7 @@ void MenuGames(){
   lcd.setCursor(8,1);
   lcd.print("  Plus");
 
-  delay(500);
+  delay (250);
   while(1){
     // Deplacement suivant
     if(digitalRead(btnUp) == HIGH){
@@ -101,7 +101,7 @@ void MenuGames(){
 
     // Back
     if(digitalRead(btnBack) == HIGH){
-      MenuTargetZero();
+      menuTargetsZero();
     }
 
     delay(200);
@@ -135,7 +135,7 @@ void gameStandard(){
   lcd.setCursor(0,0);
   lcd.print("STANDARD");
   delay(1500);
-  MenuGames();
+  menuGames();
 }
 
 void gameDrill(){
@@ -143,7 +143,7 @@ void gameDrill(){
   lcd.setCursor(0,0);
   lcd.print("DRILL");
   delay(1500);
-  MenuGames();
+  menuGames();
 }
 
 void gameReflex(){
@@ -151,7 +151,7 @@ void gameReflex(){
   lcd.setCursor(0,0);
   lcd.print("REFLEX");
   delay(1500);
-  MenuGames();
+  menuGames();
 }
 
 void moreGame(){
@@ -159,7 +159,49 @@ void moreGame(){
   lcd.setCursor(0,0);
   lcd.print("MORE");
   delay(1500);
-  MenuGames();
+  menuGames();
+}
+
+//---- Settings Games
+
+void settingStand(){
+  int nbTarget = 10;
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Nb de Cibles :");
+  lcd.setCursor(1,7)
+  lcd.print(nbTarget);
+
+  while(1){
+    delay(250);
+
+    if(digitalRead(btnUp) == HIGH){
+      nbTarget++;
+      changeLCDPrintStand(nbTarget);
+    }
+
+    if(digitalRead(btnDown) == HIGH){
+      if(nbTarget == 0){} 
+      else {
+        nbTarget--;
+        changeLCDPrintStand(nbTarget);
+      }
+    }
+
+    if(digitalRead(btnSelect) == HIGH){ gameStandard(nbTarget) }
+
+    if(digitalRead(btnSelect) == HIGH){ menuGames() }
+
+  }
+}
+
+void changeLCDPrintStand(int nbTarget){
+  lcd.clearLine(1);
+  lcd.setCursor(1,7);
+  if(nbTarget >= 10){
+    lcd.setCursor(1,6)
+  }
+  lcd.print(nbTarget);
 }
 
 //----
@@ -167,9 +209,8 @@ void moreGame(){
 void changeLCDPrint(int choix){
   switch(choix){
     case 0:
-      lcd.clear();
       lcd.setCursor(0,0);
-      lcd.print("> Standard");
+      lcd.print("> Stand");
       lcd.setCursor(8,0);
       lcd.print("  Drill");
       lcd.setCursor(0,1);
@@ -178,9 +219,8 @@ void changeLCDPrint(int choix){
       lcd.print("  Plus");
       break;
     case 1:
-      lcd.clear();
       lcd.setCursor(0,0);
-      lcd.print(" Standard");
+      lcd.print(" Stand");
       lcd.setCursor(8,0);
       lcd.print(">  Drill");
       lcd.setCursor(0,1);
@@ -189,9 +229,8 @@ void changeLCDPrint(int choix){
       lcd.print("  Plus");
       break;
     case 2:
-      lcd.clear();
       lcd.setCursor(0,0);
-      lcd.print(" Standard");
+      lcd.print(" Stand");
       lcd.setCursor(8,0);
       lcd.print("  Drill");
       lcd.setCursor(0,1);
@@ -200,9 +239,8 @@ void changeLCDPrint(int choix){
       lcd.print("  Plus");
       break;
     case 3:
-      lcd.clear();
       lcd.setCursor(0,0);
-      lcd.print(" Standard");
+      lcd.print(" Stand");
       lcd.setCursor(8,0);
       lcd.print("  Drill");
       lcd.setCursor(0,1);
@@ -211,25 +249,24 @@ void changeLCDPrint(int choix){
       lcd.print(">  Plus");
       break;
   }
-
 }
 
 //------------------------------------------------------------------------------------
 
-void MenuUser(){
+void menuUser(){
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("MENU USER");
   delay(1500);
-  MenuTargetZero();
+  menuTargetsZero();
 }
 
 //------------------------------------------------------------------------------------
 
-void MenuSettings(){
+void menuSettings(){
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("MENU REGLAGE");
   delay(1500);
-  MenuTargetZero();
+  menuTargetsZero();
 }

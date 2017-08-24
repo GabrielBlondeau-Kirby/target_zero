@@ -28,11 +28,17 @@ int sensor_of_cible;
 
 // Sensors
 int list_sensor[10] ={sensor1, sensor2, sensor3, sensor4, sensor5, sensor6, sensor7, sensor8, sensor9, sensor10};
+<<<<<<< HEAD
+=======
+
+byte value = 0;
+int THRESHOLD = 100; // Detection value
+>>>>>>> master
 
 byte value = 0;
 int THRESHOLD = 100; // Detection value
 
-
+/*
 void setup() {
  // initialisation Cibles
   for (int x = 0; x < total_cible; x++) {
@@ -53,6 +59,7 @@ void setup() {
 
 void loop() {
 }
+*/
 
 void mode_nb_cible(int nb_cibles) {
   Serial.println("");

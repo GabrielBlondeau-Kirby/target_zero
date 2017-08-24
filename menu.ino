@@ -190,7 +190,7 @@ void settingStand(){
 
     if(digitalRead(btnSelect) == HIGH){ gameStandard(nbTarget) }
 
-    if(digitalRead(btnSelect) == HIGH){ menuGames() }
+    if(digitalRead(btnBack) == HIGH){ menuGames() }
 
   }
 }

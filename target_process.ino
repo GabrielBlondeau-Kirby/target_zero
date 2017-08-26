@@ -31,7 +31,7 @@ int list_sensor[10] ={sensor1, sensor2, sensor3, sensor4, sensor5, sensor6, sens
 byte value = 0;
 int THRESHOLD = 100; // Detection value
 
-/*
+
 void setup() {
  // initialisation Cibles
   for (int x = 0; x < total_cible; x++) {
@@ -52,7 +52,7 @@ void setup() {
 
 void loop() {
 }
-*/
+
 
 void mode_nb_cible(int nb_cibles) {
   Serial.println("");
@@ -81,7 +81,7 @@ void mode_nb_cible(int nb_cibles) {
     Serial.println(sensor_of_cible);
     
     digitalWrite(random_cible, HIGH);
-    value = 0
+    value = 0;
     while(value < THRESHOLD){
       value = analogRead(sensor_of_cible);
       Serial.println("value :");

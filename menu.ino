@@ -1,5 +1,4 @@
 #include <LiquidCrystal_I2C.h>
-#include <C:\Users\blond\Desktop\cool_target\target_zero\non_git\target_z3r0\menu\target_process.ino>
 
 LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
@@ -23,8 +22,6 @@ void setup() {
 }
 
 void loop() {}
-
-
 
 void menuTargetsZero() {
   lcd.clear();
@@ -112,7 +109,7 @@ void menuGames(){
 void startGameMenuOne(int choix){
   // Standard
   if(choix == 0){
-    gameStandard();
+    settingStand();
   } 
   // Drill
   else if (choix == 1) {
@@ -169,7 +166,7 @@ void settingStand(){
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("Nb de Cibles :");
-  lcd.setCursor(1,7)
+  lcd.setCursor(1,7);
   lcd.print(nbTarget);
 
   while(1){
@@ -181,25 +178,26 @@ void settingStand(){
     }
 
     if(digitalRead(btnDown) == HIGH){
-      if(nbTarget == 0){} 
-      else {
+      if(nbTarget >= 1){
         nbTarget--;
         changeLCDPrintStand(nbTarget);
       }
     }
 
-    if(digitalRead(btnSelect) == HIGH){ gameStandard(nbTarget) }
+    if(digitalRead(btnSelect) == HIGH){ gameStandard(); }
 
-    if(digitalRead(btnBack) == HIGH){ menuGames() }
+    if(digitalRead(btnBack) == HIGH){ menuGames(); }
 
   }
 }
 
 void changeLCDPrintStand(int nbTarget){
-  lcd.clearLine(1);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Nb de Cibles :");
   lcd.setCursor(1,7);
   if(nbTarget >= 10){
-    lcd.setCursor(1,6)
+    lcd.setCursor(1,6);
   }
   lcd.print(nbTarget);
 }
